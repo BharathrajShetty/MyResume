@@ -1,0 +1,9 @@
+
+.pdf-container {
+    display: flex;
+}
+
+.pdf-container iframe{
+    width: 2000px;
+    height: 2000px;
+}
