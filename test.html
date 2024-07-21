@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Type Detection</title>
+    <style>
+        .desktop {
+            background-color: lightblue;
+        }
+
+        .mobile {
+            background-color: lightgreen;
+        }
+
+        .tablet {
+            background-color: lightcoral;
+        }
+
+        .unknown {
+            background-color: lightgrey;
+        }
+
+        .device-message {
+            padding: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="device-type" class="device-message">Detecting device type...</div>
+
+    <script>
+        function getDeviceType() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            if (/mobile|android|iphone|ipod|blackberry|iemobile|opera mini/.test(userAgent)) {
+                return 'mobile';
+            } else if (/tablet|ipad/.test(userAgent)) {
+                return 'tablet';
+            } else if (/desktop|mac|windows|linux/.test(userAgent) || !/mobile|android|iphone|ipod|blackberry|iemobile|opera mini|tablet|ipad/.test(userAgent)) {
+                return 'desktop';
+            } else {
+                return 'unknown';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const deviceType = getDeviceType();
+            const deviceTypeElement = document.getElementById('device-type');
+            deviceTypeElement.classList.add(deviceType);
+
+            switch (deviceType) {
+                case 'mobile':
+                    deviceTypeElement.textContent = 'You are using a Mobile device.';
+                    break;
+                case 'tablet':
+                    deviceTypeElement.textContent = 'You are using a Tablet device.';
+                    break;
+                case 'desktop':
+                    deviceTypeElement.textContent = 'You are using a Desktop device.';
+                    break;
+                default:
+                    deviceTypeElement.textContent = 'Device type is unknown.';
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
