@@ -7,11 +7,87 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="pdf-container">
-            <iframe src="bharathraj_cv.pdf"></iframe>
+    <div id="other" style="display: none">
+        <div class="container-other">
+            <div class="pdf-container">
+                <iframe src="bharathraj_cv.pdf"></iframe>
+            </div>
         </div>
     </div>
+
+    <div id="mobile" style="display: none;">
+        <div class="pdf-container-mobile" id="pdf-container-mobile">
+            <!-- PDF pages will be rendered here -->
+        </div>
+        <div class="controls-mobile">
+            <a id="download-link-mobile" href="bharathraj_cv.pdf" download="bharathraj_cv.pdf">
+                <button>Download</button>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js"></script>
+    <script>
+        const url = 'bharathraj_cv.pdf'; // Updated PDF file path
+        const pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+
+        const pdfContainer = document.getElementById('pdf-container-mobile');
+        const downloadLink = document.getElementById('download-link-mobile');
+        downloadLink.href = url; // Set the href of the download link to the PDF URL
+
+        pdfjsLib.getDocument(url).promise.then(function(pdfDoc) {
+            for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+                pdfDoc.getPage(pageNum).then(function(page) {
+                    const scale = 1.5;
+                    const viewport = page.getViewport({ scale: scale });
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    pdfContainer.appendChild(canvas);
+
+                    const renderContext = {
+                        canvasContext: ctx,
+                        viewport: viewport
+                    };
+                    page.render(renderContext).promise.then(function() {
+                        console.log('Page ' + pageNum + ' rendered');
+                    });
+                });
+            }
+        }).catch(function(error) {
+            console.error('Error: ', error);
+        });
+
+        function getDeviceType() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            if (/mobile|android|iphone|ipod|blackberry|iemobile|opera mini/.test(userAgent)) {
+                return 'mobile';
+            } else if (/tablet|ipad/.test(userAgent)) {
+                return 'tablet';
+            } else if (/desktop|mac|windows|linux/.test(userAgent) || !/mobile|android|iphone|ipod|blackberry|iemobile|opera mini|tablet|ipad/.test(userAgent)) {
+                return 'desktop';
+            } else {
+                return 'unknown';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const deviceType = getDeviceType();
+
+            switch (deviceType) {
+                case 'mobile':
+                case 'tablet':
+                    document.getElementById('mobile').style.display = "block";
+                    break;
+                default:
+                    document.getElementById('mobile').style.display = "block";
+                    break;
+            }
+        });
+    </script>
 </body>
 </html>
 

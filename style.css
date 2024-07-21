@@ -1,20 +1,71 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; /* Prevent extra scroll bars on body and html */
+    font-family: Arial, sans-serif;
+}
 
+/* Desktop specific styles */
 .pdf-container {
     display: flex;
 }
 
-.pdf-container iframe{
-    width: 2000px;
-    height: 2000px;
+.pdf-container iframe {
+    width: 100%; /* Use percentage to fit container */
+    height: 100vh; /* Use full viewport height */
+    border: none; /* Remove border */
 }
 
-@media only screen and (max-width: 500px) {
+/* Mobile/Tablet specific styles */
+.pdf-container-mobile {
+    width: 100%;
+    max-width: 800px;
+    height: calc(100vh - 60px); /* Full viewport height minus space for controls */
+    overflow-y: auto; /* Enable scrolling within container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-	.pdf-container {
-        display: flex;
-    }
-    .pdf-container iframe{
-        width: 100%;
-        height: 500px;
-    }
+.pdf-container-mobile canvas {
+    width: 100%;
+    margin: 0;
+    border: none;
+}
+
+.controls-mobile {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.controls-mobile button {
+    padding: 12px 24px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.controls-mobile button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.controls-mobile button:active {
+    background-color: #004085;
+}
+
+.controls-mobile a {
+    text-decoration: none; /* Remove underline from the link */
 }
