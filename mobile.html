@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Viewer with Scrolling</title>
+    <title>PDF Viewer with Download</title>
     <style>
         body, html {
             height: 100%;
             margin: 0;
             overflow: hidden; /* Prevent extra scroll bars on body */
+            font-family: Arial, sans-serif; /* Use a clean font */
         }
 
         .pdf-container {
             width: 100%;
             max-width: 800px;
-            height: 100vh; /* Full viewport height */
+            height: calc(100vh - 60px); /* Full viewport height minus space for controls */
             overflow-y: scroll; /* Enable scrolling within container */
             display: flex;
             flex-direction: column;
@@ -26,9 +27,48 @@
             margin: 0;
             border: none;
         }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            background-color: #333;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            background-color: #004085;
+        }
+
+        a {
+            text-decoration: none; /* Remove underline from the link */
+        }
     </style>
 </head>
 <body>
+    <div class="controls">
+        <a id="download-link" href="bharathraj_cv.pdf" download="bharathraj_cv.pdf">
+            <button>Download PDF</button>
+        </a>
+    </div>
     <div class="pdf-container" id="pdf-container">
         <!-- PDF pages will be rendered here -->
     </div>
@@ -36,15 +76,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js"></script>
     <script>
-        const url = 'bharathraj_cv.pdf';
+        const url = 'bharathraj_cv.pdf'; // Updated PDF file path
         const pdfjsLib = window['pdfjs-dist/build/pdf'];
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
 
         const pdfContainer = document.getElementById('pdf-container');
+        const downloadLink = document.getElementById('download-link');
+        downloadLink.href = url; // Set the href of the download link to the PDF URL
 
         pdfjsLib.getDocument(url).promise.then(function(pdfDoc) {
-            const pages = [];
-
             for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
                 pdfDoc.getPage(pageNum).then(function(page) {
                     const scale = 1.5;
