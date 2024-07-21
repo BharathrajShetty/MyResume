@@ -47,26 +47,27 @@ body, html {
 
 /* Download button styles */
 .controls-mobile button {
-    padding: 8px 16px; /* Reduced padding for a smaller button */
-    font-size: 14px; /* Decreased font size */
+    padding: 12px 24px; /* Increased padding for a larger button */
+    font-size: 16px; /* Font size to match increased button size */
     color: #fff;
-    background-color: #007bff;
+    background: linear-gradient(45deg, #007bff, #0056b3); /* Gradient background */
     border: none;
     border-radius: 5px; /* Slightly smaller border-radius */
     cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
     animation: pulsate 2s infinite;
     margin: 10px; /* Margin inside the button container */
 }
 
 /* Hover effect */
 .controls-mobile button:hover {
+    background: linear-gradient(45deg, #0056b3, #004085); /* Change gradient on hover */
     animation: pulsate 0.5s;
 }
 
 /* Active state */
 .controls-mobile button:active {
-    background-color: #004085;
+    background: linear-gradient(45deg, #004085, #003766); /* Darker gradient on active */
 }
 
 /* Remove underline from the link */
@@ -85,7 +86,7 @@ body, html {
         transform: scale(1);
     }
     50% {
-        transform: scale(1.05);
+        transform: scale(1.1);
     }
     100% {
         transform: scale(1);
