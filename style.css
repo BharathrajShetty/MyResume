@@ -38,12 +38,12 @@ body, html {
     bottom: 0;
     width: 100%;
     height: 60px;
-    background-color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0);
+    background: none; /* Remove background color */
 }
 
 .controls-mobile button {
@@ -54,11 +54,11 @@ body, html {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
+    transition: box-shadow 0.3s, transform 0.3s;
+    animation: pulsate 1.5s infinite;
 }
 
 .controls-mobile button:hover {
-    background-color: #0056b3;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -68,4 +68,16 @@ body, html {
 
 .controls-mobile a {
     text-decoration: none; /* Remove underline from the link */
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }

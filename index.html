@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="other" style="display: none">
+    <div id="other" style="display: none;">
         <div class="container-other">
             <div class="pdf-container">
-                <iframe src="bharathraj_cv.pdf"></iframe>
+                <iframe src="bharathraj_cv.pdf" title="Bharathraj Resume"></iframe>
             </div>
         </div>
     </div>
@@ -35,7 +35,6 @@
 
         const pdfContainer = document.getElementById('pdf-container-mobile');
         const downloadLink = document.getElementById('download-link-mobile');
-        downloadLink.href = url; // Set the href of the download link to the PDF URL
 
         pdfjsLib.getDocument(url).promise.then(function(pdfDoc) {
             for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
@@ -83,11 +82,10 @@
                     document.getElementById('mobile').style.display = "block";
                     break;
                 default:
-                    document.getElementById('other').style.display = "block";
+                    document.getElementById('mobile').style.display = "block";
                     break;
             }
         });
     </script>
 </body>
 </html>
-
